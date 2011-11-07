@@ -1,0 +1,26 @@
+#######################################
+# Syntax Coloring Map Daisy22
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Daisy22	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+begin	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+P0	LITERAL1
+P1	LITERAL1
+P2	LITERAL1
+P3	LITERAL1
+P4	LITERAL1
+P5	LITERAL1
+P6	LITERAL1
+P7	LITERAL1
