@@ -29,6 +29,14 @@
 #define W4_7 18
 #define W4_8 19
 
+#define DIP1 2
+#define DIP2 3
+#define DIP3 4
+#define DIP4 5
+#define DIP5 6
+#define DIP6 7
+#define DIP7 8
+
 
 class Daisy4 {
 	public:

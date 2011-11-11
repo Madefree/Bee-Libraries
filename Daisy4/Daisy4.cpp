@@ -5,7 +5,7 @@
 
 Daisy4::Daisy4(int wing, int dipswitch) {
 	_wing=wing;
-	_dipswitch=dipswitch + 1;
+	_dipswitch=dipswitch;
 
 }
 
