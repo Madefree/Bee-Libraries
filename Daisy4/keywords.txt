@@ -1,0 +1,44 @@
+#######################################
+# Syntax Coloring Map Daisy
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Daisy4	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+begin	KEYWORD2
+readState	KEYWORD2
+Wing3	KEYWORD2
+Wing4	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+W3	LITERAL1
+W4	LITERAL1
+W3_2	LITERAL1
+W3_3	LITERAL1
+W3_4	LITERAL1
+W3_5	LITERAL1
+W3_6	LITERAL1
+W3_7	LITERAL1
+W3_8	LITERAL1
+W4_2	LITERAL1
+W4_3	LITERAL1
+W4_4	LITERAL1
+W4_5	LITERAL1
+W4_6	LITERAL1
+W4_7	LITERAL1
+W4_8	LITERAL1
+P1	LITERAL1
+P2	LITERAL1
+P3	LITERAL1
+P4	LITERAL1
+P5	LITERAL1
+P6	LITERAL1
+P7	LITERAL1
