@@ -9,36 +9,37 @@ Daisy5::Daisy5(int wing) {
 }
 
 void Daisy5::begin(void) {
-	for (int i=2; i<9; i++) {
+	for(int i=2; i<9; i++) {
 		if(_wing == W3)
 			pinMode(Wing3(i),INPUT);
-		else if (_wing == W4 && (i!=7 || i!=8))
+		else if(_wing == W4 && (i!=7 || i!=8))
 			pinMode(Wing4(i),INPUT);
 	}
-
 }
 
 int Daisy5::readButton(int pin) {
 	if(pin >=1 && pin <= 7) {
-        if (_wing==W3) 
-            return digitalRead(Wing3(pin+1));
-        else if (_wing == W4) {
-            if(pin==6){
-                int value=analogRead(4);
-                if(value>=755) return HIGH;
-                else return LOW;
-                
-            }else if(pin==7) {
-                int value=analogRead(5);
-                if(value>=755) return HIGH;
-                else return LOW;
-            }else {
-                return digitalRead(Wing4(pin+1));
-            }
-                
-        }
-    }
-	
+		if(_wing==W3)
+			return digitalRead(Wing3(pin+1));
+		else if(_wing == W4) {
+			if(pin==6){
+				int value=analogRead(4);
+				if(value>=755)
+					return HIGH;
+				else
+					return LOW;
+			}
+			else if(pin==7) {
+				int value=analogRead(5);
+				if(value>=755)
+					return HIGH;
+				else
+					return LOW;
+			}
+			else
+				return digitalRead(Wing4(pin+1));
+		}
+	}
 }
 
 
@@ -79,4 +80,3 @@ int Daisy5::Wing4(int pin) {
 			return(W4_8);
 	}
 }
-

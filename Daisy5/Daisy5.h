@@ -32,16 +32,15 @@
 #define P7 7
 
 class Daisy5 {
-public:
-	Daisy5(int wing);
-	void begin(void);
-	int readButton(int pin);
-	int Wing3(int pin);
-	int Wing4(int pin);
-		
-private:
-	int _wing;
-	
+	public:
+		Daisy5(int wing);
+		void begin(void);
+		int readButton(int pin);
+
+	private:
+		int _wing;
+		int Wing3(int pin);
+		int Wing4(int pin);
 };
 
 #endif
