@@ -25,26 +25,24 @@
 
 
 class Daisy2 {
-public:
-	Daisy2(int wing,int conf);
-    int Wing3(int pin);
-    int Wing4(int pin);
-	void begin();
-    void setSpeed(long speed);
-    void direction(int dir);
-    void invertDirection();
-    void motorEN(int en);
-    void step(int nstep);
-    
-		
-private:
-	int _wing;
-    int _conf;
-    int _step;
-    int _en;
-    int _dir;
-    unsigned long _speed;
-	
+	public:
+		Daisy2(int wing,int conf);
+		void begin();
+		void setSpeed(long speed);
+		void direction(int dir);
+		void invertDirection();
+		void motorEN(int en);
+		void step(int nstep);
+
+	private:
+		int _wing;
+		int _conf;
+		int _step;
+		int _en;
+		int _dir;
+		unsigned long _speed;
+		int Wing3(int pin);
+		int Wing4(int pin);
 };
 
 #endif

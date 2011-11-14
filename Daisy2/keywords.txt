@@ -11,19 +11,18 @@ Daisy2	KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
+
 begin	KEYWORD2
-Wing3	KEYWORD2
-Wing4	KEYWORD2
 setSpeed	KEYWORD2
 direction	KEYWORD2
 invertDirection	KEYWORD2
 motorEN	KEYWORD2
 step	KEYWORD2
 
-
 #######################################
 # Constants (LITERAL1)
 #######################################
+
 A	LITERAL1
 B	LITERAL1
 W3	LITERAL1
