@@ -11,10 +11,9 @@ Daisy5	KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
+
 begin	KEYWORD2
 readButton	KEYWORD2
-Wing3	KEYWORD2
-Wing4	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
