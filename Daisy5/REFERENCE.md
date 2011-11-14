@@ -48,6 +48,6 @@ int (High or Low)
 
 # Notes
 
-When these modules are connected to W4, the I2C port is disabled!
-Button P8 and LED L8 are not available, they correspond to the 5V pin. (see pino
-ut for more info).
+When these module are connected to W4, the I2C port is disabled!
+
+Button P8 are not available, they correspond to the 5V pin. (see pinout for more info).
