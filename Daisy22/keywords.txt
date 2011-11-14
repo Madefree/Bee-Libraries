@@ -11,11 +11,15 @@ Daisy22	KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
+
 begin	KEYWORD2
+digitalWrite	KEYWORD2
+digitalRead	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
+
 P0	LITERAL1
 P1	LITERAL1
 P2	LITERAL1
