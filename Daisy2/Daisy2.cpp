@@ -21,7 +21,7 @@ void Daisy2::begin() {
 		else if(_conf==B) {
 			_step=Wing3(7);
 			_en=Wing3(3);
-			_dir=Wing3(5)
+			_dir=Wing3(5);
 		}
 	}
 	else if(_wing==W4) {
