@@ -15,7 +15,6 @@ void Daisy11::begin(void) {
 		else if (_wing == W4)
 			pinMode(Wing4(i),OUTPUT);
 	}
-
 }
 
 void Daisy11::ledOn(int pin) {
@@ -23,19 +22,17 @@ void Daisy11::ledOn(int pin) {
 		digitalWrite(Wing3(pin+1),HIGH);
 	else if (_wing == W4)
 		digitalWrite(Wing4(pin+1),HIGH);
-	
 }
 
-void Daisy11::ledChange(int pin) {
-	if (_wing==W3) 
+void Daisy11::ledSwitch(int pin) {
+	if (_wing==W3)
 		digitalWrite(Wing3(pin+1),!digitalRead(Wing3(pin+1)));
 	else if (_wing == W4)
 		digitalWrite(Wing4(pin+1),!digitalRead(Wing4(pin+1)));
-	
 }
 
 void Daisy11::ledOff(int pin) {
-	if (_wing==W3) 
+	if (_wing==W3)
 		digitalWrite(Wing3(pin+1),LOW);
 	else if (_wing == W4)
 		digitalWrite(Wing4(pin+1),LOW);	
@@ -78,4 +75,3 @@ int Daisy11::Wing4(int pin) {
 			return(W4_8);
 	}
 }
-

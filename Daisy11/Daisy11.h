@@ -23,23 +23,26 @@
 #define W4_7 18
 #define W4_8 19
 
+#define P1 1
+#define P2 2
+#define P3 3
+#define P4 4
+#define P5 5
+#define P6 6
+#define P7 7
+
 class Daisy11 {
-public:
-	Daisy11(int wing);
-	void begin(void);
-	void ledOn(int pin);
-	void ledOff(int pin);
-    void ledChange(int pin);
-	int Wing3(int pin);
-	int Wing4(int pin);
-		
-private:
-	int _wing;
-	
+	public:
+		Daisy11(int wing);
+		void begin(void);
+		void ledOn(int pin);
+		void ledOff(int pin);
+		void ledSwitch(int pin);
+
+	private:
+		int _wing;
+		int Wing3(int pin);
+		int Wing4(int pin);
 };
 
 #endif
-
-
-
-	
