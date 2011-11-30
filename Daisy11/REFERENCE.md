@@ -1,4 +1,4 @@
-# Daisy2()
+# Daisy11()
 
 Create an object Daisy11
 
@@ -8,7 +8,7 @@ Daisy11 leds(wing)
 
 ### Parameters
 
-wing: Wing where you connected Dasiy2
+wing: Wing where you connected Dasiy11
 
 ### Returns
 
