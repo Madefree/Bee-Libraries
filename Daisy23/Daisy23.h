@@ -6,7 +6,12 @@
 #include <avr/interrupt.h>
 #include "types.h"
 #include "defs.h"
+
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#else
 #include "WProgram.h"
+#endif
 
 #define UP 4
 #define DOWN 1

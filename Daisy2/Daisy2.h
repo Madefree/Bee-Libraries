@@ -1,7 +1,11 @@
 #ifndef Daisy2_h
 #define Daisy2_h
 
-#include <WProgram.h>
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#else
+#include "WProgram.h"
+#endif
 
 #define A 0
 #define B 1

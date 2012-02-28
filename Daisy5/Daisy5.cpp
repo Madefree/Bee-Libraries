@@ -1,6 +1,10 @@
 #include "Daisy5.h"
 
-#include <WProgram.h>
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#else
+#include "WProgram.h"
+#endif
 
 
 Daisy5::Daisy5(int wing) {

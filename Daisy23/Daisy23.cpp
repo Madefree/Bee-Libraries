@@ -10,7 +10,12 @@
 #include "mpr121.h"
 #include "types.h"
 #include "defs.h"
+
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#else
 #include "WProgram.h"
+#endif
 
 
 #define ADDR 0xB4
