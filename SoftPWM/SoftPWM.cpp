@@ -24,8 +24,14 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "SoftPWM.h"
+
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#else
 #include <wiring.h>
 #include <pins_arduino.h>
+#endif
+
 
 #if F_CPU
 #define SOFTPWM_FREQ 60UL
