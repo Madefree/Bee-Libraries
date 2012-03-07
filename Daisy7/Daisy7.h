@@ -21,7 +21,7 @@
 #define ErrorCode_1 "Entered scale was not valid, valid gauss values are: 0.88, 1.3, 1.9, 2.5, 4.0, 4.7, 5.6, 8.1"
 #define ErrorCode_1_Num 1
 
-/*****  BMP0085 Temperature\Baramoter *****/
+/*****  BMP085 Temperature\Baramoter *****/
 #define BMP085_ADDRESS 0x77
 
 const unsigned char OSS = 0;
@@ -54,6 +54,41 @@ struct AccelerometerRaw
     int ZAxis;
 };
 
+
+/*****  L3G4200D Gyroscope *****/
+#define L3G4200D_ADDRESS       0x68
+#define L3G4200D_WHO_AM_I      0x0F
+
+#define L3G4200D_CTRL_REG1     0x20
+#define L3G4200D_CTRL_REG2     0x21
+#define L3G4200D_CTRL_REG3     0x22
+#define L3G4200D_CTRL_REG4     0x23
+#define L3G4200D_CTRL_REG5     0x24
+#define L3G4200D_REFERENCE     0x25
+#define L3G4200D_OUT_TEMP      0x26
+#define L3G4200D_STATUS_REG    0x27
+
+#define L3G4200D_OUT_X_L       0x28
+#define L3G4200D_OUT_X_H       0x29
+#define L3G4200D_OUT_Y_L       0x2A
+#define L3G4200D_OUT_Y_H       0x2B
+#define L3G4200D_OUT_Z_L       0x2C
+#define L3G4200D_OUT_Z_H       0x2D
+
+#define L3G4200D_FIFO_CTRL_REG 0x2E
+#define L3G4200D_FIFO_SRC_REG  0x2F
+
+#define L3G4200D_INT1_CFG      0x30
+#define L3G4200D_INT1_SRC      0x31
+#define L3G4200D_INT1_THS_XH   0x32
+#define L3G4200D_INT1_THS_XL   0x33
+#define L3G4200D_INT1_THS_YH   0x34
+#define L3G4200D_INT1_THS_YL   0x35
+#define L3G4200D_INT1_THS_ZH   0x36
+#define L3G4200D_INT1_THS_ZL   0x37
+#define L3G4200D_INT1_DURATION 0x38
+
+
 /*** Daisy7 Class ***/
 
 class Daisy7
@@ -68,7 +103,7 @@ public:
     int MagnSetScale(float gauss);
     char* MagnGetErrorText(int errorCode);
     
-    /*****  BMP0085 Temperature\Baramoter *****/
+    /*****  BMP085 Temperature\Baramoter *****/
     void BaroCalibration();
     float BaroGetTemperature(unsigned int ut);
     long BaroGetPressure(unsigned long up);
@@ -80,13 +115,25 @@ public:
     void AccConfig();
     AccelerometerRaw Accelerometer();
     
+    /*****  L3G4200D Gyroscope *****/
+    typedef struct vector{float x, y, z;} vector;
+    vector g;
+    void GyroEnableDefault(void);
+    void GyroWriteReg(uint8_t reg, uint8_t value);
+    uint8_t GyroReadReg(uint8_t reg);
+    void GyroRead(void);
+    static void GyroVector_cross(const vector *a, const vector *b, vector *out);
+    static float GyroVector_dot(const vector *a,const vector *b);
+    static void GyroVector_normalize(vector *a);
+    
+    
 protected:
     
     /* HMC5883 Magnetometer*/
-    void MagnWrite(int address, int byte);
+    void MagnWrite(int address, int uint8_t);
     uint8_t* MagnRead(int address, int length);
     
-    /*****  BMP0085 Temperature\Baramoter *****/
+    /*****  BMP085 Temperature\Baramoter *****/
     char bmp085Read(unsigned char address);
     int bmp085ReadInt(unsigned char address);
     
@@ -95,7 +142,7 @@ private:
     /* HMC5883 Magnetometer*/
     float m_Scale;
     
-    /*****  BMP0085 Temperature\Baramoter *****/
+    /*****  BMP085 Temperature\Baramoter *****/
     int _ac1;
     int _ac2;
     int _ac3;
@@ -109,8 +156,8 @@ private:
     int _md;
     long _b5;
     
-    /*****  LIS331DLH Accelerometer *****/
-    
+    /*****  LIS331DLH Accelerometer *****/    
     unsigned char acc_status;
+
 };
 #endif

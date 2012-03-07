@@ -1,3 +1,12 @@
+/*
+ * Daniele Sdei, Marco Antonini 2012 Madefree Electronics (www.madefree.eu)
+ *
+ * HMC5883L section is based on code by Love Electronics (loveelectronics.co.uk)
+ * BMP085 section is based on code by Jim Lindblom
+ * 
+ * 
+ */
+
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
@@ -6,7 +15,7 @@
 #endif
 
 #include "Daisy7.h"
-
+#include <math.h>
 
 Daisy7::Daisy7()
 {
@@ -132,7 +141,7 @@ char* Daisy7::MagnGetErrorText(int errorCode)
 	return "Error not defined.";
 }
 
-/*****  BMP0085 Temperature\Baramoter *****/
+/*****  BMP085 Temperature\Baramoter *****/
 
 // Stores all of the bmp085's calibration values into global variables
 // Calibration values are required to calculate temp and pressure
@@ -203,7 +212,7 @@ long Daisy7::BaroGetPressure(unsigned long up){
     return temp;
 }
 
-// Read 1 byte from the BMP085 at 'address'
+// Read 1 uint8_t from the BMP085 at 'address'
 char Daisy7::bmp085Read(unsigned char address)
 {
     unsigned char data;
@@ -219,9 +228,9 @@ char Daisy7::bmp085Read(unsigned char address)
     return Wire.read();
 }
 
-// Read 2 bytes from the BMP085
-// First byte will be from 'address'
-// Second byte will be from 'address'+1
+// Read 2 uint8_ts from the BMP085
+// First uint8_t will be from 'address'
+// Second uint8_t will be from 'address'+1
 int Daisy7::bmp085ReadInt(unsigned char address)
 {
     unsigned char msb, lsb;
@@ -253,7 +262,7 @@ unsigned int Daisy7::bmp085ReadUT(){
     // Wait at least 4.5ms
     delay(5);
     
-    // Read two bytes from registers 0xF6 and 0xF7
+    // Read two uint8_ts from registers 0xF6 and 0xF7
     ut = bmp085ReadInt(0xF6);
     return ut;
 }
@@ -378,5 +387,83 @@ AccelerometerRaw Daisy7::Accelerometer() {
     
     return raw;
 
+}
 
+
+/*****  L3G4200D Gyroscope *****/
+
+// Turns on the L3G4200D's gyro and places it in normal mode.
+void Daisy7::GyroEnableDefault(void)
+{
+	// 0x0F = 0b00001111
+	// Normal power mode, all axes enabled
+	GyroWriteReg(L3G4200D_CTRL_REG1, 0x0F);
+}
+
+// Writes a gyro register
+void Daisy7::GyroWriteReg(uint8_t reg, uint8_t value)
+{
+	Wire.beginTransmission(L3G4200D_ADDRESS);
+	Wire.write(reg);
+	Wire.write(value);
+	Wire.endTransmission();
+}
+
+// Reads a gyro register
+uint8_t Daisy7::GyroReadReg(uint8_t reg)
+{
+	uint8_t value;
+	
+	Wire.beginTransmission(L3G4200D_ADDRESS);
+	Wire.write(reg);
+	Wire.endTransmission();
+	Wire.requestFrom(L3G4200D_ADDRESS, 1);
+	value = Wire.read();
+	Wire.endTransmission();
+	
+	return value;
+}
+
+// Reads the 3 gyro channels and stores them in vector g
+void Daisy7::GyroRead()
+{
+	Wire.beginTransmission(L3G4200D_ADDRESS);
+	// assert the MSB of the address to get the gyro 
+	// to do slave-transmit subaddress updating.
+	Wire.write(L3G4200D_OUT_X_L | (1 << 7)); 
+	Wire.endTransmission();
+	Wire.requestFrom(L3G4200D_ADDRESS, 6);
+    
+	while (Wire.available() < 6);
+	
+	uint8_t xla = Wire.read();
+	uint8_t xha = Wire.read();
+	uint8_t yla = Wire.read();
+	uint8_t yha = Wire.read();
+	uint8_t zla = Wire.read();
+	uint8_t zha = Wire.read();
+    
+	g.x = xha << 8 | xla;
+	g.y = yha << 8 | yla;
+	g.z = zha << 8 | zla;
+}
+
+void Daisy7::GyroVector_cross(const vector *a,const vector *b, vector *out)
+{
+    out->x = a->y*b->z - a->z*b->y;
+    out->y = a->z*b->x - a->x*b->z;
+    out->z = a->x*b->y - a->y*b->x;
+}
+
+float Daisy7::GyroVector_dot(const vector *a,const vector *b)
+{
+    return a->x*b->x+a->y*b->y+a->z*b->z;
+}
+
+void Daisy7::GyroVector_normalize(vector *a)
+{
+    float mag = sqrt(GyroVector_dot(a,a));
+    a->x /= mag;
+    a->y /= mag;
+    a->z /= mag;
 }
