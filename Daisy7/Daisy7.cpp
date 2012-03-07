@@ -4,24 +4,36 @@
  * HMC5883L section is based on code by Love Electronics (loveelectronics.co.uk)
  * BMP085 section is based on code by Jim Lindblom
  * 
- * 
  */
-
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
 #else
-#include <WProgram.h> 
+#include "WProgram.h" 
 #endif
 
 #include "Daisy7.h"
-#include <math.h>
 
 Daisy7::Daisy7()
 {
+  //Costructor
+}
+
+void Daisy7::begin()
+{
+  Wire.begin();
+    
   /*****  HMC5883 Magnetometer *****/
   m_Scale = 1;
-  
+    
+  /*****  BMP085 Temperature\Baramoter *****/
+  BaroCalibration();
+    
+  /*****  LIS331DLH Accelerometer *****/
+  AccConfig();
+    
+  /*****  L3G4200D Gyroscope *****/
+  GyroEnableDefault();
 }
 
 
@@ -425,7 +437,7 @@ uint8_t Daisy7::GyroReadReg(uint8_t reg)
 }
 
 // Reads the 3 gyro channels and stores them in vector g
-void Daisy7::GyroRead()
+GyroRaw Daisy7::GyroRead()
 {
 	Wire.beginTransmission(L3G4200D_ADDRESS);
 	// assert the MSB of the address to get the gyro 
@@ -434,7 +446,7 @@ void Daisy7::GyroRead()
 	Wire.endTransmission();
 	Wire.requestFrom(L3G4200D_ADDRESS, 6);
     
-	while (Wire.available() < 6);
+	while (Wire.available() < 6){ }
 	
 	uint8_t xla = Wire.read();
 	uint8_t xha = Wire.read();
@@ -443,27 +455,10 @@ void Daisy7::GyroRead()
 	uint8_t zla = Wire.read();
 	uint8_t zha = Wire.read();
     
-	g.x = xha << 8 | xla;
-	g.y = yha << 8 | yla;
-	g.z = zha << 8 | zla;
+	g.XAxis = xha << 8 | xla;
+	g.YAxis = yha << 8 | yla;
+	g.ZAxis = zha << 8 | zla;
+    
+    return g;
 }
 
-void Daisy7::GyroVector_cross(const vector *a,const vector *b, vector *out)
-{
-    out->x = a->y*b->z - a->z*b->y;
-    out->y = a->z*b->x - a->x*b->z;
-    out->z = a->x*b->y - a->y*b->x;
-}
-
-float Daisy7::GyroVector_dot(const vector *a,const vector *b)
-{
-    return a->x*b->x+a->y*b->y+a->z*b->z;
-}
-
-void Daisy7::GyroVector_normalize(vector *a)
-{
-    float mag = sqrt(GyroVector_dot(a,a));
-    a->x /= mag;
-    a->y /= mag;
-    a->z /= mag;
-}

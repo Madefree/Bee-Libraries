@@ -1,12 +1,19 @@
+/*
+ * Daniele Sdei, Marco Antonini 2012 Madefree Electronics (www.madefree.eu)
+ *
+ * HMC5883L section is based on code by Love Electronics (loveelectronics.co.uk)
+ * BMP085 section is based on code by Jim Lindblom
+ * 
+ */
 
 #ifndef Daisy7_h
 #define Daisy7_h
 
-#include <inttypes.h>
+#include "inttypes.h"
 #include "Wire.h"
 
-/* HMC5883 Magnetometer*/
 
+/* HMC5883 Magnetometer*/
 #define HMC5883L_ADDRESS 0x1E
 #define ConfigurationRegisterA 0x00
 #define ConfigurationRegisterB 0x01
@@ -88,6 +95,12 @@ struct AccelerometerRaw
 #define L3G4200D_INT1_THS_ZL   0x37
 #define L3G4200D_INT1_DURATION 0x38
 
+struct GyroRaw
+{
+	float XAxis;
+	float YAxis;
+	float ZAxis;
+};
 
 /*** Daisy7 Class ***/
 
@@ -95,6 +108,7 @@ class Daisy7
 {
 public:
     Daisy7();
+    void begin();
     
     /* HMC5883 Magnetometer*/
     MagnetometerRaw MagnReadRawAxis();
@@ -116,15 +130,10 @@ public:
     AccelerometerRaw Accelerometer();
     
     /*****  L3G4200D Gyroscope *****/
-    typedef struct vector{float x, y, z;} vector;
-    vector g;
     void GyroEnableDefault(void);
     void GyroWriteReg(uint8_t reg, uint8_t value);
     uint8_t GyroReadReg(uint8_t reg);
-    void GyroRead(void);
-    static void GyroVector_cross(const vector *a, const vector *b, vector *out);
-    static float GyroVector_dot(const vector *a,const vector *b);
-    static void GyroVector_normalize(vector *a);
+    GyroRaw GyroRead(void);
     
     
 protected:
@@ -158,6 +167,9 @@ private:
     
     /*****  LIS331DLH Accelerometer *****/    
     unsigned char acc_status;
+    
+    /*****  L3G4200D Gyroscope *****/
+    GyroRaw g;
 
 };
 #endif
