@@ -6,18 +6,37 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-HMC5883L	KEYWORD1
+Daisy7	KEYWORD1
+gsm	KEYWORD1
 MagnetometerRaw	KEYWORD1
 MagnetometerScaled	KEYWORD1
+AccelerometerRaw	KEYWORD1
+Gyro	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-ReadRawAxis	KEYWORD2
-ReadScaledAxis	KEYWORD2
-SetMeasurementMode	KEYWORD2
-SetScale	KEYWORD2
+MagnReadRawAxis	KEYWORD2
+MagnetometerScaled	KEYWORD2
+MagnSetMeasurementMode	KEYWORD2
+MagnSetScale	KEYWORD2
+
+BaroCalibration	KEYWORD2
+BaroGetTemperature	KEYWORD2
+BaroGetPressur	KEYWORD2
+bmp085ReadUT	KEYWORD2
+bmp085ReadUP	KEYWORD2
+calcAltitude	KEYWORD2
+
+AccConfig	KEYWORD2
+Accelerometer	KEYWORD2
+
+GyroEnableDefault	KEYWORD2
+GyroRead	KEYWORD2
+
+gps_setup	KEYWORD2
+gps_decode	KEYWORD2
 
 XAxis	KEYWORD2
 YAxis	KEYWORD2
@@ -29,3 +48,13 @@ ZAxis	KEYWORD2
 
 Measurement_Continuous	LITERAL1
 Measurement_SingleShot	LITERAL1
+
+gps_time	LITERAL1
+gps_date	LITERAL1
+gps_lat	LITERAL1
+gps_lon	LITERAL1
+gps_aprs_lat	LITERAL1
+gps_aprs_lon	LITERAL1
+gps_course	LITERAL1
+gps_speed	LITERAL1
+gps_altitude	LITERAL1
